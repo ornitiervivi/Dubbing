@@ -1,10 +1,23 @@
 # Harness
-Harness é composto por Guides, Sensors, Context, Memory, Tools/MCP, Subagents e Model.
-Guides: AGENTS.md, specs, docs, ADRs, skills, prompts, policies.
-Sensors: tests, linters, type checks, ArchUnit, CI, evals, security checks.
-Context: arquitetura, domínio, decisões, roadmap, constraints.
-Memory: decision log, bug log, learnings, limitations, glossary.
-Tools/MCP: ferramentas externas controladas.
-Subagents: agentes especializados por área.
-Model: modelo usado pelo agente.
-Agent = Model + Harness.
+
+Harness é a parte operacional do agente. O modelo sozinho não garante qualidade.
+
+## Definição
+**Agent = Model + Harness**.
+
+- **Model**: capacidade de raciocínio e geração.
+- **Harness**: contexto, regras, sensores, memória, skills e ferramentas que restringem e validam o trabalho.
+
+## Componentes obrigatórios do harness
+1. **Guides**: `AGENTS.md`, specs, ADRs, docs de qualidade e segurança.
+2. **Sensors**: comandos automatizados que barram regressão.
+3. **Memory**: logs versionados de decisões, bugs, aprendizados e limitações.
+4. **Subagents**: revisão especializada por domínio.
+5. **Tools/MCP**: integrações permitidas pelo repositório.
+
+## Fluxo mínimo antes de PR
+1. Ler contexto obrigatório definido em `AGENTS.md`.
+2. Declarar plano de revisão/execução.
+3. Executar sensores mandatórios.
+4. Registrar mudanças arquiteturais e decisões em docs/memory.
+5. Validar checklist de segurança e qualidade antes de abrir PR.
