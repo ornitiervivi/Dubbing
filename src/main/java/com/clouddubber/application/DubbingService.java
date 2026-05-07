@@ -23,7 +23,7 @@ public class DubbingService {
     public DubbingJob createDubbingJob(String filename, String contentType, long size, InputStream file) {
         String id = ids.nextId();
         String key = storage.upload("jobs/" + id + "/original", file, size, contentType);
-        DubbingJob job = new DubbingJob(id, filename, contentType, size, key, Enums.DubbingJobStatus.CREATED, clock.now());
+        DubbingJob job = new DubbingJob(id, filename, contentType, Enums.DubbingSourceType.UPLOAD, Enums.DubbingJobStatus.CREATED, key, null, null, null, null, null, clock.now(), clock.now());
         return jobs.save(job);
     }
     public DubbingJob getById(String id) { return jobs.findById(id).orElseThrow(); }
