@@ -1,27 +1,40 @@
 # cloud-dubber-api
-Plataforma web/cloud-first de dublagem automática por IA.
 
-## Fase atual
-Harness completo e fundação da API em Java 25 + Spring Boot 4.
+Plataforma cloud-first para pipeline de dublagem assistida por IA com foco inicial em fundação técnica.
 
-## Fluxo de PR assistido por IA
-1. Codex trabalha em branch de feature e nunca faz push direto na main.
-2. Antes do PR, Codex roda verificação de binários, testes e build.
-3. Codex abre ou atualiza o PR na mesma branch até CI ficar verde.
-4. Se houver review com P0/P1, Codex corrige antes de pedir merge.
-5. Binários devem ser artifacts de workflow, nunca arquivos versionados.
+## Estado atual
+Este repositório está na fase de **estabilização da fundação**: arquitetura, harness, sensores, CI, segurança e qualidade.
 
-## Como pedir correção
-Comente no PR: `@codex fix the CI failures`.
+## Harness (Agent = Model + Harness)
+O projeto usa harness explícito para guiar agentes:
+- Regras operacionais em `AGENTS.md`.
+- Políticas e guias em `docs/ai`.
+- Sensores em `docs/ai/SENSORS.md`.
+- Memória versionada em `docs/memory`.
 
-## Auto-merge no GitHub
-Ative auto-merge somente após todos os checks obrigatórios passarem e reviews obrigatórios serem aprovados.
+## Como rodar localmente
+1. Pré-requisitos:
+   - Java 25
+   - Maven 3.9+
+   - Docker e Docker Compose
+2. Executar sensores principais:
+   - `mvn test`
+   - `mvn verify`
+   - `docker compose config`
+   - `docker build -t cloud-dubber-api:local .`
+3. Subir stack local:
+   - `docker compose up -d`
+4. Swagger:
+   - `http://localhost:8080/swagger-ui.html`
 
-## Local
-- `mvn test`
-- `mvn verify`
-- `docker compose up -d`
-- Swagger: http://localhost:8080/swagger-ui.html
+## Como testar a API
+- Smoke local pelo contexto Spring: `mvn test`
+- Contrato OpenAPI via Swagger UI no endpoint acima.
+
+## Roadmap
+Roadmap de produto e limites de escopo em:
+- `docs/product/ROADMAP.md`
+- `docs/product/NON_GOALS.md`
 
 ## Regra de binários
 Não versionar jars, classes, imagens, bancos locais, outputs de build ou outros binários.
