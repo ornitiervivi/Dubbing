@@ -32,6 +32,7 @@ public final class Ports {
     public record AudioExtractionResult(Path outputFile, long outputSizeBytes, String contentType) {}
     public interface AudioExtractionGateway { AudioExtractionResult extractAudio(AudioExtractionRequest request); }
     public interface SpeechToTextGateway { com.clouddubber.domain.model.SpeechModels.SpeechToTextResult transcribe(com.clouddubber.domain.model.SpeechModels.SpeechToTextRequest request); }
+    public interface ScriptTranslationGateway { com.clouddubber.domain.model.TranslationModels.ScriptTranslationResult translate(com.clouddubber.domain.model.TranslationModels.ScriptTranslationRequest request); }
     public interface DubbingPipelineQueue { void publishStart(String jobId); }
     public interface ClockGateway { Instant now(); }
     public interface IdGeneratorGateway { String nextId(); }
