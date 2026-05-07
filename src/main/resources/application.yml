@@ -17,6 +17,17 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
 clouddubber:
+  transcription:
+    provider: ${CLOUDDUBBER_TRANSCRIPTION_PROVIDER:development}
+    language-hint: ${CLOUDDUBBER_TRANSCRIPTION_LANGUAGE_HINT:en}
+    timeout: ${CLOUDDUBBER_TRANSCRIPTION_TIMEOUT:PT30S}
+    max-audio-size: ${CLOUDDUBBER_TRANSCRIPTION_MAX_AUDIO_SIZE:52428800}
+    store-transcript-asset: ${CLOUDDUBBER_TRANSCRIPTION_STORE_TRANSCRIPT_ASSET:false}
+    output-format: ${CLOUDDUBBER_TRANSCRIPTION_OUTPUT_FORMAT:json}
+  openai:
+    api-key: ${OPENAI_API_KEY:}
+    base-url: ${OPENAI_BASE_URL:https://api.openai.com/v1}
+    transcription-model: ${OPENAI_TRANSCRIPTION_MODEL:gpt-4o-mini-transcribe}
   ffmpeg:
     binary-path: ${CLOUDDUBBER_FFMPEG_BINARY_PATH:ffmpeg}
     audio-format: ${CLOUDDUBBER_FFMPEG_AUDIO_FORMAT:mp3}
