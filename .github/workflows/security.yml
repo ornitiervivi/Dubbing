@@ -1,0 +1,9 @@
+name: security
+on: [push, pull_request]
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: test -f AGENTS.md
+      - run: test -f docs/security/SECURITY_CHECKLIST.md
