@@ -2,6 +2,12 @@ services:
   api:
     build: .
     ports: ["8080:8080"]
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: clouddubber
+      DB_USER: clouddubber
+      DB_PASSWORD: clouddubber
     depends_on: [postgres,minio]
   postgres:
     image: postgres:16
