@@ -1,0 +1,19 @@
+services:
+  api:
+    build: .
+    ports: ["8080:8080"]
+    depends_on: [postgres,minio]
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: clouddubber
+      POSTGRES_USER: clouddubber
+      POSTGRES_PASSWORD: clouddubber
+    ports: ["5432:5432"]
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio12345
+    ports: ["9000:9000","9001:9001"]

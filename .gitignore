@@ -1,0 +1,36 @@
+# Build outputs
+/target/
+/build/
+/out/
+/node_modules/
+
+# Java artifacts
+*.class
+*.jar
+*.war
+*.ear
+
+# Archives and binaries
+*.zip
+*.tar
+*.gz
+*.apk
+*.exe
+*.dll
+
+# Images and icons
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.ico
+
+# Databases
+*.db
+*.sqlite
+
+# Python cache
+*.pyc
+
+# Maven wrapper binary
+.mvn/wrapper/maven-wrapper.jar
