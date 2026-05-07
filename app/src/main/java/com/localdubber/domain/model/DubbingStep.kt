@@ -1,0 +1,3 @@
+package com.localdubber.domain.model
+
+enum class DubbingStep { VIDEO_IMPORT, AUDIO_EXTRACTION, TRANSCRIPTION, TRANSLATION, VOICE_GENERATION, RENDERING, COMPLETED }
