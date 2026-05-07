@@ -11,20 +11,22 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Entity @Table(name="dubbing_jobs") class DubbingJobEntity { @Id public String id; public String originalFilename; public String contentType; public long sizeBytes; public String storageKey; public String status; public Instant createdAt; }
+@Entity @Table(name="dubbing_jobs") class DubbingJobEntity { @Id public String id; public String originalFilename; public String contentType; public String sourceType; public String sourceAsset; public String extractedAudioAsset; public String translatedScriptAsset; public String dubbedAudioAsset; public String renderedVideoAsset; public String failureReason; public String status; public Instant createdAt; public Instant updatedAt; }
 @Entity @Table(name="dubbing_segments") class DubbingSegmentEntity { @Id public String id; public String jobId; public String adaptedText; public String status; }
 @Entity @Table(name="voice_profiles") class VoiceProfileEntity { @Id public String id; public String displayName; public boolean consentAccepted; public String status; public Instant createdAt; }
 
-interface SpringJobRepo extends JpaRepository<DubbingJobEntity,String> {}
+interface SpringJobRepo extends JpaRepository<DubbingJobEntity,String> { List<DubbingJobEntity> findByStatusOrderByCreatedAtAsc(String status, org.springframework.data.domain.Pageable pageable); }
 interface SpringSegRepo extends JpaRepository<DubbingSegmentEntity,String> { List<DubbingSegmentEntity> findByJobId(String jobId); }
 interface SpringVoiceRepo extends JpaRepository<VoiceProfileEntity,String> {}
 
 @Repository
 class JpaDubbingJobRepository implements Ports.DubbingJobRepository {
     private final SpringJobRepo repo; JpaDubbingJobRepository(SpringJobRepo repo){this.repo=repo;}
-    public DubbingJob save(DubbingJob j){ DubbingJobEntity e=new DubbingJobEntity(); e.id=j.id;e.originalFilename=j.originalFilename;e.contentType=j.contentType;e.sizeBytes=j.sizeBytes;e.storageKey=j.storageKey;e.status=j.status.name();e.createdAt=j.createdAt; repo.save(e); return j;}
-    public Optional<DubbingJob> findById(String id){ return repo.findById(id).map(e->new DubbingJob(e.id,e.originalFilename,e.contentType,e.sizeBytes,e.storageKey, Enums.DubbingJobStatus.valueOf(e.status),e.createdAt)); }
-    public List<DubbingJob> search(int page,int size){ return repo.findAll(PageRequest.of(page,size)).stream().map(e->new DubbingJob(e.id,e.originalFilename,e.contentType,e.sizeBytes,e.storageKey, Enums.DubbingJobStatus.valueOf(e.status),e.createdAt)).toList(); }
+    public DubbingJob save(DubbingJob j){ DubbingJobEntity e=repo.findById(j.id).orElse(new DubbingJobEntity()); e.id=j.id;e.originalFilename=j.originalFileName;e.contentType=j.originalContentType;e.sourceType=j.sourceType.name();e.sourceAsset=j.sourceAsset;e.extractedAudioAsset=j.extractedAudioAsset;e.translatedScriptAsset=j.translatedScriptAsset;e.dubbedAudioAsset=j.dubbedAudioAsset;e.renderedVideoAsset=j.renderedVideoAsset;e.failureReason=j.failureReason;e.status=j.status.name();e.createdAt=j.createdAt;e.updatedAt=j.updatedAt; repo.save(e); return j;}
+    public Optional<DubbingJob> findById(String id){ return repo.findById(id).map(this::map); }
+    public List<DubbingJob> search(int page,int size){ return repo.findAll(PageRequest.of(page,size)).stream().map(this::map).toList(); }
+    public List<DubbingJob> findByStatus(Enums.DubbingJobStatus status, int limit){ return repo.findByStatusOrderByCreatedAtAsc(status.name(), PageRequest.of(0, limit)).stream().map(this::map).toList(); }
+    private DubbingJob map(DubbingJobEntity e){ return new DubbingJob(e.id,e.originalFilename,e.contentType,Enums.DubbingSourceType.valueOf(e.sourceType),Enums.DubbingJobStatus.valueOf(e.status),e.sourceAsset,e.extractedAudioAsset,e.translatedScriptAsset,e.dubbedAudioAsset,e.renderedVideoAsset,e.failureReason,e.createdAt,e.updatedAt); }
 }
 @Repository class JpaDubbingSegmentRepository implements Ports.DubbingSegmentRepository {
     private final SpringSegRepo repo; JpaDubbingSegmentRepository(SpringSegRepo repo){this.repo=repo;}

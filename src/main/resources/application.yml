@@ -16,3 +16,15 @@ management:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+clouddubber:
+  ffmpeg:
+    binary-path: ${CLOUDDUBBER_FFMPEG_BINARY_PATH:ffmpeg}
+    audio-format: ${CLOUDDUBBER_FFMPEG_AUDIO_FORMAT:mp3}
+    audio-codec: ${CLOUDDUBBER_FFMPEG_AUDIO_CODEC:libmp3lame}
+    timeout: ${CLOUDDUBBER_FFMPEG_TIMEOUT:PT30S}
+  pipeline:
+    worker:
+      enabled: ${CLOUDDUBBER_PIPELINE_WORKER_ENABLED:true}
+      fixed-delay: ${CLOUDDUBBER_PIPELINE_WORKER_DELAY:5000}
+      batch-size: ${CLOUDDUBBER_PIPELINE_WORKER_BATCH:5}
+    temp-directory: ${CLOUDDUBBER_PIPELINE_TEMP_DIRECTORY:/tmp/clouddubber}

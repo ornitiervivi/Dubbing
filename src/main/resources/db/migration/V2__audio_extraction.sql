@@ -1,0 +1,11 @@
+alter table dubbing_jobs add column if not exists source_type varchar(40) default 'UPLOAD';
+alter table dubbing_jobs add column if not exists source_asset varchar(255);
+alter table dubbing_jobs add column if not exists extracted_audio_asset varchar(255);
+alter table dubbing_jobs add column if not exists translated_script_asset varchar(255);
+alter table dubbing_jobs add column if not exists dubbed_audio_asset varchar(255);
+alter table dubbing_jobs add column if not exists rendered_video_asset varchar(255);
+alter table dubbing_jobs add column if not exists failure_reason varchar(300);
+alter table dubbing_jobs add column if not exists updated_at timestamp;
+update dubbing_jobs set source_asset = storage_key where source_asset is null;
+update dubbing_jobs set source_type = 'UPLOAD' where source_type is null;
+update dubbing_jobs set updated_at = created_at where updated_at is null;
