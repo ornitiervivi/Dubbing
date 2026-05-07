@@ -16,7 +16,7 @@ jobs:
         with:
           gradle-version: '8.7'
       - name: Run tests
-        run: gradle test
+        run: gradle testDebugUnitTest
       - name: Build debug APK
         run: gradle assembleDebug
       - name: Upload debug APK
