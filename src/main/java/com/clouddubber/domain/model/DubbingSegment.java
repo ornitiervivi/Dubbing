@@ -24,4 +24,12 @@ public class DubbingSegment {
         this.status = status;
         this.failureReason = failureReason;
     }
+
+    public void adapt(String text) {
+        if (text == null || text.isBlank()) {
+            throw new IllegalArgumentException("Adapted text is required");
+        }
+        adaptedText = text;
+        status = Enums.DubbingSegmentStatus.ADAPTED;
+    }
 }

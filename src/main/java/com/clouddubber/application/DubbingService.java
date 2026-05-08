@@ -32,20 +32,17 @@ public class DubbingService {
     public DubbingSegment updateAdaptation(String jobId, String segmentId, String adaptedText) {
         DubbingSegment s = segments.findById(segmentId).orElseThrow();
         if (!s.jobId.equals(jobId)) throw new IllegalArgumentException("Segment does not belong to job");
-        s.adaptedText = adaptedText;
-        s.status = Enums.DubbingSegmentStatus.ADAPTED;
+        s.adapt(adaptedText);
         return segments.save(s);
     }
     public DubbingJob startPipeline(String jobId) {
         DubbingJob job = getById(jobId);
-        if (job.status == Enums.DubbingJobStatus.FAILED || job.status == Enums.DubbingJobStatus.COMPLETED) throw new IllegalStateException("Invalid status");
-        job.status = Enums.DubbingJobStatus.AUDIO_EXTRACTION_PENDING;
+        job.markAudioExtractionPending();
         DubbingJob saved = jobs.save(job);
         queue.publishStart(jobId);
         return saved;
     }
     public VoiceProfile createVoiceProfile(String name, boolean consentAccepted) {
-        if (!consentAccepted) throw new IllegalArgumentException("Consent required");
         VoiceProfile vp = new VoiceProfile(ids.nextId(), name, consentAccepted, Enums.VoiceProfileStatus.ACTIVE, clock.now());
         return voices.save(vp);
     }
