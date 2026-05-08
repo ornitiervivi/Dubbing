@@ -36,6 +36,7 @@ public class DubbingService {
     }
 
     public DubbingJob createDubbingJob(String filename, String contentType, long size, InputStream file) {
+        validateCreateJobInput(filename, contentType, size, file);
         String id = ids.nextId();
         String key = storage.upload("jobs/" + id + "/original", file, size, contentType);
         DubbingJob job = new DubbingJob(
@@ -62,6 +63,12 @@ public class DubbingService {
     }
 
     public List<DubbingJob> search(int page, int size) {
+        if (page < 0) {
+            throw new IllegalArgumentException("Page must be greater than or equal to zero");
+        }
+        if (size <= 0) {
+            throw new IllegalArgumentException("Size must be greater than zero");
+        }
         return jobs.search(page, size);
     }
 
@@ -93,5 +100,20 @@ public class DubbingService {
 
     public VoiceProfile getVoiceProfileById(String id) {
         return voices.findById(id).orElseThrow();
+    }
+
+    private void validateCreateJobInput(String filename, String contentType, long size, InputStream file) {
+        if (filename == null || filename.isBlank()) {
+            throw new IllegalArgumentException("Filename is required");
+        }
+        if (contentType == null || contentType.isBlank()) {
+            throw new IllegalArgumentException("Content type is required");
+        }
+        if (size <= 0) {
+            throw new IllegalArgumentException("File size must be greater than zero");
+        }
+        if (file == null) {
+            throw new IllegalArgumentException("File stream is required");
+        }
     }
 }

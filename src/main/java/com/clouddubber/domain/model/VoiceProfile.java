@@ -3,11 +3,11 @@ package com.clouddubber.domain.model;
 import java.time.Instant;
 
 public class VoiceProfile {
-    public String id;
-    public String displayName;
-    public boolean consentAccepted;
-    public Enums.VoiceProfileStatus status;
-    public Instant createdAt;
+    private final String id;
+    private final String displayName;
+    private final boolean consentAccepted;
+    private final Enums.VoiceProfileStatus status;
+    private final Instant createdAt;
 
     public VoiceProfile(String id, String displayName, boolean consentAccepted, Enums.VoiceProfileStatus status, Instant createdAt) {
         if (!consentAccepted) {
@@ -21,5 +21,45 @@ public class VoiceProfile {
         this.consentAccepted = consentAccepted;
         this.status = status;
         this.createdAt = createdAt;
+    }
+
+    public String id() {
+        return id;
+    }
+
+    public String displayName() {
+        return displayName;
+    }
+
+    public boolean consentAccepted() {
+        return consentAccepted;
+    }
+
+    public Enums.VoiceProfileStatus status() {
+        return status;
+    }
+
+    public Instant createdAt() {
+        return createdAt;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public boolean isConsentAccepted() {
+        return consentAccepted;
+    }
+
+    public Enums.VoiceProfileStatus getStatus() {
+        return status;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 }
