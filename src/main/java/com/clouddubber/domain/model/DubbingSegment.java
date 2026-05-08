@@ -25,6 +25,10 @@ public class DubbingSegment {
         this.failureReason = failureReason;
     }
 
+    public boolean belongsToJob(String expectedJobId) {
+        return jobId != null && jobId.equals(expectedJobId);
+    }
+
     public void adapt(String text) {
         if (text == null || text.isBlank()) {
             throw new IllegalArgumentException("Adapted text is required");
