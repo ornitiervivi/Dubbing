@@ -22,12 +22,6 @@ class JpaVoiceProfileRepository implements Ports.VoiceProfileRepository {
         entity.consentAccepted = profile.isConsentAccepted();
         entity.status = profile.getStatus().name();
         entity.createdAt = profile.getCreatedAt();
-        VoiceProfileEntity entity = repo.findById(profile.id).orElse(new VoiceProfileEntity());
-        entity.id = profile.id;
-        entity.displayName = profile.displayName;
-        entity.consentAccepted = profile.consentAccepted;
-        entity.status = profile.status.name();
-        entity.createdAt = profile.createdAt;
         repo.save(entity);
         return profile;
     }
