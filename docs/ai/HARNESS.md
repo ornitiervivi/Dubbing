@@ -21,3 +21,6 @@ Harness é a parte operacional do agente. O modelo sozinho não garante qualidad
 3. Executar sensores mandatórios.
 4. Registrar mudanças arquiteturais e decisões em docs/memory.
 5. Validar checklist de segurança e qualidade antes de abrir PR.
+
+## 2026-05-08 Engineering quality hardening
+Atualizado para incluir gates senior/staff, regras explícitas, skills e ADRs de qualidade.
