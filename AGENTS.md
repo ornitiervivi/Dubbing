@@ -54,3 +54,18 @@ Este arquivo é a constituição do repositório para agentes de IA.
 - Binários gerados devem ser publicados como GitHub Actions artifacts.
 - Antes de criar PR, o agente deve rodar uma verificação de binários.
 - Se algum binário for detectado, o agente deve remover, ignorar ou documentar o motivo e parar.
+
+## Senior Engineering Standards
+- Todo código deve ser escrito como produção.
+- Toda classe deve ter responsabilidade clara.
+- Todo método deve ser pequeno e expressivo.
+- Todo use case deve representar intenção de negócio.
+- Todo boundary deve ser explícito.
+- Todo provider externo deve passar por port/gateway.
+- Todo código novo deve ter teste proporcional.
+- Toda refatoração deve preservar comportamento.
+- Todo pattern deve justificar redução de complexidade/acoplamento.
+- Se uma classe parecer ruim, refatorar antes de adicionar feature.
+- Se encontrar smell, registrar em docs/memory/LEARNINGS.md ou corrigir.
+- Se encontrar dívida não corrigida agora, registrar em docs/memory/LIMITATIONS.md.
+- Antes de finalizar, rodar quality review usando docs/quality/CODE_REVIEW_RUBRIC.md.
