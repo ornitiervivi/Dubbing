@@ -8,3 +8,8 @@ spring:
       ddl-auto: none
   flyway:
     enabled: false
+
+clouddubber:
+  pipeline:
+    worker:
+      enabled: false
