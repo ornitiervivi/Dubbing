@@ -7,3 +7,5 @@
 
 ## 2026-05-08 Engineering quality hardening
 Atualizado para incluir gates senior/staff, regras explícitas, skills e ADRs de qualidade.
+
+- 2026-05-08: Violação de regra absoluta detectada: uso de Java record em classes de domínio e ports.

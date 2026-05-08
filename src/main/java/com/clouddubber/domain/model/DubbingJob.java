@@ -34,4 +34,11 @@ public class DubbingJob {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
+    public void markAudioExtractionPending() {
+        if (status == Enums.DubbingJobStatus.FAILED || status == Enums.DubbingJobStatus.COMPLETED) {
+            throw new IllegalStateException("Invalid status");
+        }
+        status = Enums.DubbingJobStatus.AUDIO_EXTRACTION_PENDING;
+    }
 }
