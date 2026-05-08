@@ -42,4 +42,24 @@ public class VoiceProfile {
     public Instant createdAt() {
         return createdAt;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public boolean isConsentAccepted() {
+        return consentAccepted;
+    }
+
+    public Enums.VoiceProfileStatus getStatus() {
+        return status;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
 }
